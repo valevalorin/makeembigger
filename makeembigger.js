@@ -21,7 +21,11 @@
 				var emoticon = $(emoticons[i]);
 				var src = emoticon.attr('src');
 				if(src.indexOf('@4x') == -1)
-					emoticon.attr('src', src.split('.png').join('@4x.png'));
+				{
+					index = src.lastIndexOf('.');
+					var newSrc = src.substr(0, index) + '@4x' + src.substr(index);
+					emoticon.attr('src', newSrc);
+				}
 			}
 		}, 1000);
 	});
