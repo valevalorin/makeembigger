@@ -1,0 +1,22 @@
+{
+  "manifest_version": 2,
+
+  "name": "@4x",
+  "description": "Spoofing to get dem supersex retina resolution emoticons from hipchat",
+  "version": "1.0",
+
+  "permissions": [
+    "activeTab",
+    "https://ajax.googleapis.com/",
+    "tabs",
+    "https://*.hipchat.com/*"
+  ],
+
+  "content_scripts": [
+    {
+      "matches": ["https://*.hipchat.com/*"],
+      "css": ["makeembigger.css"],
+      "js": ["jquery.min.js", "angular.min.js", "makeembigger.js"]
+    }
+  ]
+}
