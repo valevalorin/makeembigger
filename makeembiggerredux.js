@@ -1,3 +1,3 @@
 (function() {
-	window.devicePixelRatio = 2;
+	window.devicePixelRatio = 4;
 })();
