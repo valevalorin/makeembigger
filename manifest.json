@@ -21,6 +21,10 @@
     }
   ],
 
+  "icons": {
+    "128": "text3555.png"
+  },
+
   "web_accessible_resources": [
     "makeembiggerredux.js"
   ]

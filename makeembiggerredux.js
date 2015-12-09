@@ -19,6 +19,7 @@
 	           		eval(xmlhttp.responseText);
 	              setupImageResizing();
 	              $(document).mousedown(function (event) {
+	              	console.log("clicker cliking");
 									setupImageResizing();
 								});
 	           }
@@ -37,38 +38,54 @@
 
 	function setupImageResizing() {
 		$(document).ready(function () {
+			console.log("document ready");
 			var makeembigger_preview_flag = false;
 			var makeembigger_position = 0;
+			var previewElement = null;
+			var activeResizer = null;
+			var cachedSelect = document.onselectstart;
+
+			$(document).mouseup(function (event) {
+				makeembigger_preview_flag = false;
+				makeembigger_position = 0;
+				document.onselectstart = function (e) {return true;};
+			});
+
+			$(document).mousemove(function (event) {
+				if(makeembigger_preview_flag) {
+					var position = event.pageX;
+					var newWidth = activeResizer.position().left + (position - makeembigger_position);
+					activeResizer.css("left", newWidth+"px");
+					activeResizer.killertree.css("max-width", newWidth+"px");
+					activeResizer.killertree.css("max-height", newWidth+"px");
+					activeResizer.killertree.css("width", newWidth+"px");
+					makeembigger_position += (position - makeembigger_position);
+				}
+			});
 
 			$('.image-preview-wrapper').each(function (index, element) {
 				element = $(element);
+				console.log("Yo")
 				if(element.find('.makeembigger-resizer').length == 0)
 				{
-						var resizer = $("<div class='makeembigger-resizer' style='width:100%;background-color:red;height:20px;'></div>");
-						resizer.killertree = element.find("img");
+						var resizer = $("<div style='position:absolute;left:305px;background-color:transparent;height:20px;width:20px;border-radius:2px;margin-right:10px;'></div>");
+						if(element.find("img").length > 0)
+							resizer.killertree = element.find("img");
+						else if(element.find("video").length > 0);
+							resizer.killertree = element.find("video");
 						resizer.mousedown(function (event) {
 							makeembigger_preview_flag = true;
 							makeembigger_position = event.pageX;
-							console.log("on: x = "+makeembigger_position);
+							activeResizer = resizer;
+							previewElement = element;
+							document.onselectstart = function (e) {return false;}
 						});
-						element.mousemove(function (event) {
-							if(makeembigger_preview_flag) {
-								var position = event.pageX;
-								var newWidth = resizer.killertree.width() + ((position - makeembigger_position) * 4);
-								resizer.killertree.css("max-width", newWidth+"px");
-								resizer.killertree.css("max-height", newWidth+"px");
-								resizer.killertree.css("width", newWidth+"px");
-								makeembigger_position = event.pageX;
-								console.log("x = "+makeembigger_position);
-							}
-						});
-						$(document).mouseup(function (event) {
-							makeembigger_preview_flag = false;
-							makeembigger_position = 0;
-						});
-						element.prepend(resizer);
+						
+						var spacer = $("<div class='makeembigger-resizer' style='height:20px;position:relative;'></div>");
+						spacer.append(resizer);
+						element.prepend(spacer);
 				}
-			}) 
+			});
 		});
 	}
 
