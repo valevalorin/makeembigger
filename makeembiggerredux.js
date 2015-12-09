@@ -15,11 +15,9 @@
 	    xmlhttp.onreadystatechange = function() {
 	        if (xmlhttp.readyState == XMLHttpRequest.DONE ) {
 	           if(xmlhttp.status == 200){
-	           		console.log("got it");
 	           		eval(xmlhttp.responseText);
 	              setupImageResizing();
 	              $(document).mousedown(function (event) {
-	              	console.log("clicker cliking");
 									setupImageResizing();
 								});
 	           }
@@ -38,7 +36,6 @@
 
 	function setupImageResizing() {
 		$(document).ready(function () {
-			console.log("document ready");
 			var makeembigger_preview_flag = false;
 			var makeembigger_position = 0;
 			var previewElement = null;
@@ -65,14 +62,11 @@
 
 			$('.image-preview-wrapper').each(function (index, element) {
 				element = $(element);
-				console.log("Yo")
 				if(element.find('.makeembigger-resizer').length == 0)
 				{
-						var resizer = $("<div style='position:absolute;left:305px;background-color:transparent;height:20px;width:20px;border-radius:2px;margin-right:10px;'></div>");
-						if(element.find("img").length > 0)
-							resizer.killertree = element.find("img");
-						else if(element.find("video").length > 0);
-							resizer.killertree = element.find("video");
+						var resizer = $("<div style='position:absolute;left:305px;background-color:red;height:20px;width:20px;border-radius:2px;margin-right:10px;'></div>");
+						resizer.killertree = element.find("img");
+
 						resizer.mousedown(function (event) {
 							makeembigger_preview_flag = true;
 							makeembigger_position = event.pageX;
