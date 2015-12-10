@@ -35,51 +35,74 @@
 	}
 
 	function setupImageResizing() {
-		$(document).ready(function () {
-			var makeembigger_preview_flag = false;
-			var makeembigger_position = 0;
-			var previewElement = null;
-			var activeResizer = null;
-			var cachedSelect = document.onselectstart;
+		var makeembigger_preview_flag = false;
+		var makeembigger_position = 0;
+		var previewElement = null;
+		var activeResizer = null;
+		var cachedSelect = document.onselectstart;
 
-			$(document).mouseup(function (event) {
-				makeembigger_preview_flag = false;
-				makeembigger_position = 0;
-				document.onselectstart = function (e) {return true;};
-			});
+		$(document).mouseup(function (event) {
+			makeembigger_preview_flag = false;
+			makeembigger_position = 0;
+			document.onselectstart = function (e) {return true;};
+		});
 
-			$(document).mousemove(function (event) {
-				if(makeembigger_preview_flag) {
-					var position = event.pageX;
-					var newWidth = activeResizer.position().left + (position - makeembigger_position);
-					activeResizer.css("left", newWidth+"px");
-					activeResizer.killertree.css("max-width", newWidth+"px");
-					activeResizer.killertree.css("max-height", newWidth+"px");
-					activeResizer.killertree.css("width", newWidth+"px");
-					makeembigger_position += (position - makeembigger_position);
-				}
-			});
+		$(document).mousemove(function (event) {
+			if(makeembigger_preview_flag) {
+				var position = event.pageX;
+				var newWidth = activeResizer.position().left + (position - makeembigger_position);
+				activeResizer.css("left", newWidth+"px");
+				activeResizer.killertree.css("max-width", newWidth+"px");
+				activeResizer.killertree.css("max-height", newWidth+"px");
+				activeResizer.killertree.css("width", newWidth+"px");
+				activeResizer.killertree2.css("max-width", newWidth+"px");
+				activeResizer.killertree2.css("max-height", newWidth+"px");
+				activeResizer.killertree2.css("width", newWidth+"px");
+				makeembigger_position += (position - makeembigger_position);
+			}
+		});
 
-			$('.image-preview-wrapper').each(function (index, element) {
-				element = $(element);
-				if(element.find('.makeembigger-resizer').length == 0)
-				{
-						var resizer = $("<div style='position:absolute;left:305px;background-color:red;height:20px;width:20px;border-radius:2px;margin-right:10px;'></div>");
-						resizer.killertree = element.find("img");
+		$('.image-preview-wrapper').each(function (index, element) {
+			element = $(element);
+			if(element.find('.makeembigger-resizer').length == 0)
+			{
+					var resizer = $("<div style='position:absolute;left:"+(element.width()+5)+"px;background-color:red;height:20px;width:20px;border-radius:2px;margin-right:10px;'></div>");
+					resizer.killertree = element.find("img");
+					resizer.killertree2 = element.find("video");
 
-						resizer.mousedown(function (event) {
-							makeembigger_preview_flag = true;
-							makeembigger_position = event.pageX;
-							activeResizer = resizer;
-							previewElement = element;
-							document.onselectstart = function (e) {return false;}
-						});
-						
-						var spacer = $("<div class='makeembigger-resizer' style='height:20px;position:relative;'></div>");
-						spacer.append(resizer);
-						element.prepend(spacer);
-				}
-			});
+					resizer.mousedown(function (event) {
+						makeembigger_preview_flag = true;
+						makeembigger_position = event.pageX;
+						activeResizer = resizer;
+						previewElement = element;
+						document.onselectstart = function (e) {return false;}
+					});
+					
+					var spacer = $("<div class='makeembigger-resizer' style='height:20px;position:relative;'></div>");
+					spacer.append(resizer);
+					element.prepend(spacer);
+			}
+		});
+		$('.file-preview-wrapper').each(function (index, element) {
+			element = $(element);
+			if(element.find('.makeembigger-resizer').length == 0)
+			{
+					var resizer = $("<div style='position:absolute;left:"+(element.width()+5)+"px;background-color:red;height:20px;width:20px;border-radius:2px;margin-right:10px;'></div>");
+					resizer.killertree = element.find("img");
+					resizer.killertree2 = $();
+
+					resizer.mousedown(function (event) {
+						makeembigger_preview_flag = true;
+						makeembigger_position = event.pageX;
+						activeResizer = resizer;
+						previewElement = element;
+						document.onselectstart = function (e) {return false;}
+					});
+					
+					var spacer = $("<div class='makeembigger-resizer' style='height:20px;position:relative;'></div>");
+					spacer.append(resizer);
+					element.prepend(spacer);
+			}
 		});
 	}
 
