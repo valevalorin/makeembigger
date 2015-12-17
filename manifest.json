@@ -3,7 +3,7 @@
 
   "name": "@4x",
   "description": "Spoofing to get dem supersex retina resolution emoticons from hipchat",
-  "version": "4.0",
+  "version": "4.1",
 
   "permissions": [
     "activeTab",

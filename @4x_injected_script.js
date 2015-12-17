@@ -53,7 +53,7 @@
 				var newWidth = (previewElement.resizingTarget.width()) + (position - makeembigger_position);
 				//console.log(newWidth+" = width: "+(previewElement.resizingTarget.width())+" + (position: "+position+" - makeembigger_position: "+makeembigger_position+")");
 				previewElement.resizingTarget.css("max-width", newWidth+"px");
-				previewElement.resizingTarget.css("max-height", newWidth+"px");
+				previewElement.resizingTarget.css("max-height", (300+newWidth)+"px");
 				previewElement.resizingTarget.css("width", newWidth+"px");
 				makeembigger_position += (position - makeembigger_position);
 			}
