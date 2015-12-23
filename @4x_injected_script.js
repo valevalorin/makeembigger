@@ -49,6 +49,7 @@
 
 		$(document).mousemove(function (event) {
 			if(makeembigger_preview_flag) {
+				$('.makeembigger-shield').css('display', 'block');
 				var position = event.pageX;
 				var newWidth = (previewElement.resizingTarget.width()) + (position - makeembigger_position);
 				//console.log(newWidth+" = width: "+(previewElement.resizingTarget.width())+" + (position: "+position+" - makeembigger_position: "+makeembigger_position+")");
@@ -77,7 +78,7 @@
 
 				//Stop selecting and default click events
 				document.onselectstart = function (e) {return false;}
-				$('.makeembigger-shield').css('display', 'block');
+				//$('.makeembigger-shield').css('display', 'block');
 			} else /*try to look for a file preview*/ {
 				element = $(event.toElement).parents('.file-preview-wrapper');
 				if(element.length > 0) {
@@ -88,11 +89,12 @@
 
 					//Find resizing target
 					element.resizingTarget = element.find("img");
+					element.resizingTarget.aspectRatio = Number(element.height()/element.width());
 					previewElement = element;
 
 					//Stop selecting and default click events
 					document.onselectstart = function (e) {return false;}
-					$('.makeembigger-shield').css('display', 'block');
+					//$('.makeembigger-shield').css('display', 'block');
 				}
 			}
 		});

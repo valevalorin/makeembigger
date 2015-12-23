@@ -3,13 +3,14 @@
 
   "name": "@4x",
   "description": "Spoofing to get dem supersex retina resolution emoticons from hipchat",
-  "version": "4.2",
+  "version": "4.3",
 
   "permissions": [
     "activeTab",
     "https://ajax.googleapis.com/",
     "tabs",
-    "https://*.hipchat.com/*"
+    "https://*.hipchat.com/*",
+    "storage"
   ],
 
   "content_scripts": [
@@ -27,5 +28,7 @@
 
   "web_accessible_resources": [
     "@4x_injected_script.js"
-  ]
+  ],
+
+  "options_page": "options.html"
 }
